@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Components
+{% endblock %}
+
+{% block content %}
+{% for component in components %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-title">
+                <h4>{{ component['name'] }}</h4>
+            </div>
+            <p>
+                Quanity: {{ component['quantity'] }}
+            </p>
+            <p>
+                Price: ${{ component['price'] }}
+            </p>
+            <p>
+                Type: {{ component['component_type'] }}
+            </p>
+            <p>
+                Vendor SKU: {{ component['vendor_sku'] }}
+            </p>
+            <p>
+                Description: {{ component['description'] }}
+            </p>
+            <div class="button-list">
+                <div class="btn-group">
+                    <a href="/edit-component?id={{ component['id'] }}" class="btn btn-primary">Edit</a>
+                    <a href="/delete-component?id={{ component['id'] }}" onclick="return confirm('delete?')" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6" style="margin-bottom: 50px;">
+        <a href="/create-component" class="btn btn-primary btn-block">New Component</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+History
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-11">
+        <div class="card">
+            <div class="card-title">
+                <h4>History</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Vendor SKU</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Date Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for history in histories %}
+                            <tr>
+                                <td scope="row">{{ loop.index }}</td>
+                                <td>{{ history['components']['vendor_sku'] }}</td>
+                                <td>{{ history['components']['name'] }}</td>
+                                <td>{{ history['components']['quantity'] }}</td>
+                                <td>{{ history['components']['price'] }}</td>
+                                <td>{{ history['created_time']|datetime }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

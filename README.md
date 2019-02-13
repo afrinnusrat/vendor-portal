@@ -1,0 +1,10 @@
+# Panel Project
+
+Hypo Corp is a high-tech manufacturer specializing in the production of Virtual Reality Headsetsand other related accessories. As recently as 3 years ago they were more focused on producingin-car computer systems to supply to automakers, but have decided to transition to the new VR market due to increased competition from foreign markets. It is amongst the world leaders in this industry with over 15000 employees worldwide, including their corporate headquarters, various manufacturing plants and warehouses.
+
+While in a cool new technology field, Hypo corp is still a traditional manufacturer in many respects. It has high overhead and low margins while struggling to keep its manufacturing in the US due to overseas pressures.
+
+You and the account team have had several calls and in person meetings where you have learned about Hypo corp's business. During the course of those meetings you have spoken to the following leaders inside the organization:
+
+Senior VP of Vendor Relations: 
+Our vendors who provide the base components for our assembly plants need to send us updated lists of products and prices that they make available to us for our operations. Currently these are sent in a CSV file attached to an email, which is then swivel chair entered into a 3rd party backend application running in Microsoft SQL Server. Because of the inevitable delays and inaccuracies in this process, it means that we have actually had entire production lines delayed because our sourcing managers have made assumptions about what components they would have and at which price points, only to find out they are using inaccurate data. We need a way for our vendors to be able to update their data easily and electronically. Our IT folks have said they won't give out access to our corporate network to external users unfortunately.

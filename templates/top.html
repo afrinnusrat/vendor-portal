@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Top 5
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-11">
+        <div class="card">
+            <div class="card-title">
+                <h4>Top 5</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Vendor SKU</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for component in components %}
+                            <tr>
+                                <td scope="row">{{ loop.index }}</td>
+                                <td>{{ component['vendor_sku'] }}</td>
+                                <td><span>{{ component['name'] }}</span></td>
+                                <td>{{ component['quantity'] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
