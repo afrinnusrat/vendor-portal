@@ -32,8 +32,8 @@ def create_component():
         component_type = request.form.get('component_type')
 
         component = Components(name=name, quantity=quantity, price=price, vendor_sku=vendor_sku, description=description, component_type=component_type)
-        db_session.add(component)
-        db_session.commit()
+        db_session.session.add(component)
+        db_session.session.commit()
 
         return redirect('/components')
 
@@ -69,12 +69,12 @@ def edit_component():
         component.component_type = component_type
         component.modified_time = datetime.datetime.now()
 
-        db_session.commit()
+        db_session.session.commit()
 
         history = Histories(component_id=component.id)
 
-        db_session.add(history)
-        db_session.commit()
+        db_session.session.add(history)
+        db_session.session.commit()
 
         return redirect('/components')
 
@@ -88,8 +88,8 @@ def delete_component():
     component = Components.query.filter(Components.id == id).first()
 
     if component:
-        db_session.delete(component)
-        db_session.commit()
+        db_session.session.delete(component)
+        db_session.session.commit()
 
     return redirect('/components')
 
