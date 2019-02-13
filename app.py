@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect
-from database import db
 from sqlalchemy import desc
 from flask_sqlalchemy import SQLAlchemy
 from models.components import Components
@@ -13,8 +12,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
-Migrate(app,db)
+db_session = SQLAlchemy(app)
+Migrate(app,db_session)
 
 @app.route('/')
 def start():
