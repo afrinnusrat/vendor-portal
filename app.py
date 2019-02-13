@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect
 from sqlalchemy import desc
 from flask_sqlalchemy import SQLAlchemy
-from database import db
-from components import Components
-from histories import Histories
+import components
+import histories
 import datetime
 import os
 
