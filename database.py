@@ -3,9 +3,8 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import os
 
-current_dir = os.path.dirname(__file__)
 
-engine = create_engine(os.environ.get('DATABASE_URL'), convert_unicode=True)
+engine = create_engine(os.environ.get('DATABASE_URL'))
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
