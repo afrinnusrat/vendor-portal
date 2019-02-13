@@ -15,7 +15,7 @@ class Histories(db.Model):
     __tablename__ = 'histories'
     id = db.Column(db.String(50), primary_key=True)
     created_time = db.Column(db.DateTime(), nullable=False)
-    component_id = db.Column(db.String(50), db.ForeignKey('components.id'))
+    component_id = db.Column(db.Integer, db.ForeignKey('components.id'))
 
     def __init__(self, component_id):
         self.id = str(uuid.uuid4())
