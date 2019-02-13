@@ -8,6 +8,8 @@ from flask_migrate import Migrate
 import datetime
 import os
 
+app = Flask(__name__)
+
 @app.before_first_request
 def init():
     init_db()
