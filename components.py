@@ -7,16 +7,16 @@ import datetime
 
 class Components(db.Model):
     __tablename__ = 'components'
-    id = Column(String(50), primary_key=True)
-    name = Column(String(50))
-    quantity = Column(Integer(), default=0)
-    price = Column(Integer(), default=0)
-    component_type = Column(String(50))
-    vendor_sku = Column(String(50), unique=True)
-    description = Column(String(100), nullable=True)
-    created_time = Column(DateTime(), nullable=False)
-    modified_time = Column(DateTime(), nullable=False)
-    histories = relationship(
+    id = db.Column(String(50), primary_key=True)
+    name = db.Column(String(50))
+    quantity = db.Column(Integer(), default=0)
+    price = db.Column(Integer(), default=0)
+    component_type = db.Column(String(50))
+    vendor_sku = db.Column(String(50), unique=True)
+    description = db.Column(String(100), nullable=True)
+    created_time = db.Column(DateTime(), nullable=False)
+    modified_time = db.Column(DateTime(), nullable=False)
+    histories = db.relationship(
         'Histories',
         backref='components',
         cascade='all,delete'

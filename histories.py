@@ -6,9 +6,9 @@ import datetime
 
 class Histories(db.Model):
     __tablename__ = 'histories'
-    id = Column(String(50), primary_key=True)
-    created_time = Column(DateTime(), nullable=False)
-    component_id = Column(String(50), ForeignKey('components.id'))
+    id = db.Column(String(50), primary_key=True)
+    created_time = db.Column(DateTime(), nullable=False)
+    component_id = db.Column(String(50), ForeignKey('components.id'))
 
     def __init__(self, component_id):
         self.id = str(uuid.uuid4())
