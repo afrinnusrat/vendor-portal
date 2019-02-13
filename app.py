@@ -1,15 +1,65 @@
 from flask import Flask, render_template, request, redirect
 from sqlalchemy import desc
 from flask_sqlalchemy import SQLAlchemy
-import components
-import histories
-import datetime
 import os
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from app import db
+from sqlalchemy.orm import relationship
+import uuid
+import datetime
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
+
+
+class Components(db.Model):
+    __tablename__ = 'components'
+    id = db.Column(String(50), primary_key=True)
+    name = db.Column(String(50))
+    quantity = db.Column(Integer(), default=0)
+    price = db.Column(Integer(), default=0)
+    component_type = db.Column(String(50))
+    vendor_sku = db.Column(String(50), unique=True)
+    description = db.Column(String(100), nullable=True)
+    created_time = db.Column(DateTime(), nullable=False)
+    modified_time = db.Column(DateTime(), nullable=False)
+    histories = db.relationship(
+        'Histories',
+        backref='components',
+        cascade='all,delete'
+    )
+
+    def __init__(self, name, quantity, price, component_type, vendor_sku, description):
+        self.id = str(uuid.uuid4())
+        self.name = name
+        self.quantity = quantity
+        self.price = price
+        self.component_type = component_type
+        self.vendor_sku = vendor_sku
+        self.description = description
+        self.created_time = datetime.datetime.now()
+        self.modified_time = datetime.datetime.now()
+
+    def __repr__(self):
+        return '<Vendor SKU %r>' % (self.vendor_sku)
+
+
+class Histories(db.Model):
+    __tablename__ = 'histories'
+    id = db.Column(String(50), primary_key=True)
+    created_time = db.Column(DateTime(), nullable=False)
+    component_id = db.Column(String(50), ForeignKey('components.id'))
+
+    def __init__(self, component_id):
+        self.id = str(uuid.uuid4())
+        self.created_time = datetime.datetime.now()
+        self.component_id = component_id
+
+    def __repr__(self):
+        return '<History %r>' % (self.name)
+
 
 @app.route('/')
 def start():
