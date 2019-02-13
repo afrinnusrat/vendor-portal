@@ -1,9 +1,6 @@
 from flask import Flask, render_template, request, redirect
-from sqlalchemy import desc
 from flask_sqlalchemy import SQLAlchemy
 import os
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.orm import relationship
 import uuid
 import datetime
 
