@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request, redirect
 from sqlalchemy import desc
 from database import db_session, init_db
-from flask_sqlalchemy import SQLAlchemy
 from models.components import Components
 from models.histories import Histories
-from flask_migrate import Migrate
 import datetime
 import os
 
@@ -21,8 +19,7 @@ def shutdown_session(exception=None):
 
 @app.route('/')
 def start():
-    now = datetime.datetime.now()
-    return render_template('start.html', nav='start', now=now)
+    return render_template('start.html', nav='start')
 
 @app.route('/create-component', methods=['GET', 'POST'])
 def create_component():
@@ -72,6 +69,7 @@ def edit_component():
         component.component_type = component_type
         component.modified_time = datetime.datetime.now()
 
+        db_session.add(component)
         db_session.commit()
 
         history = Histories(component_id=component.id)
