@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, String, DateTime
-from database import Base
+from app import db_session
 from sqlalchemy.orm import relationship
 import uuid
 import datetime
 
 
-class Components(Base):
+class Components(db_session.Model):
     __tablename__ = 'components'
     id = Column(String(50), primary_key=True)
     name = Column(String(50))

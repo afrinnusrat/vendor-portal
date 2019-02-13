@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from database import Base
+from app import db_session
 import uuid
 import datetime
 
 
-class Histories(Base):
+class Histories(db_session.Model):
     __tablename__ = 'histories'
     id = Column(String(50), primary_key=True)
     created_time = Column(DateTime(), nullable=False)
