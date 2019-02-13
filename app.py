@@ -3,6 +3,7 @@ from sqlalchemy import desc
 from flask_sqlalchemy import SQLAlchemy
 from models.components import Components
 from models.histories import Histories
+from flask_migrate import Migrate
 import datetime
 import os
 
