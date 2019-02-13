@@ -1,22 +1,20 @@
 from flask import Flask, render_template, request, redirect
-from database import db_session, init_db
+from database import db
 from sqlalchemy import desc
+from flask_sqlalchemy import SQLAlchemy
 from models.components import Components
 from models.histories import Histories
 import datetime
+import os
+
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-
-@app.before_first_request
-def init():
-    init_db()
-
-
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    db_session.remove()
-
+db = SQLAlchemy(app)
+Migrate(app,db)
 
 @app.route('/')
 def start():
