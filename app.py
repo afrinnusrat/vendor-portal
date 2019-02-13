@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from sqlalchemy import desc
-from flask_sqlalchemy import SQLAlchemy
+from database import db
 from components import Components
 from histories import Histories
 import datetime
@@ -9,7 +9,6 @@ import os
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-db = SQLAlchemy(app)
 
 @app.route('/')
 def start():
