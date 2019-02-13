@@ -14,6 +14,21 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
+class Histories(db.Model):
+    __tablename__ = 'histories'
+    id = db.Column(db.String(50), primary_key=True)
+    created_time = db.Column(db.DateTime(), nullable=False)
+    component_id = db.Column(db.String(50), db.ForeignKey('components.id'))
+
+    def __init__(self, component_id):
+        self.id = str(uuid.uuid4())
+        self.created_time = datetime.datetime.now()
+        self.component_id = component_id
+
+    def __repr__(self):
+        return '<History %r>' % (self.name)
+
+
 class Components(db.Model):
     __tablename__ = 'components'
     id = db.Column(db.String(50), primary_key=True)
@@ -42,21 +57,6 @@ class Components(db.Model):
 
     def __repr__(self):
         return '<Vendor SKU %r>' % (self.vendor_sku)
-
-
-class Histories(db.Model):
-    __tablename__ = 'histories'
-    id = db.Column(db.String(50), primary_key=True)
-    created_time = db.Column(db.DateTime(), nullable=False)
-    component_id = db.Column(db.String(50), db.ForeignKey('components.id'))
-
-    def __init__(self, component_id):
-        self.id = str(uuid.uuid4())
-        self.created_time = datetime.datetime.now()
-        self.component_id = component_id
-
-    def __repr__(self):
-        return '<History %r>' % (self.name)
 
 
 @app.route('/')
