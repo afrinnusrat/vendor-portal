@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime
-from app import db_session
+from app.app import db_session
 from sqlalchemy.orm import relationship
 import uuid
 import datetime
