@@ -5,7 +5,7 @@ import os
 
 current_dir = os.path.dirname(__file__)
 
-engine = create_engine(os.environ.get(['DATABASE_URL']))
+engine = create_engine(os.environ.get('DATABASE_URL'), convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
