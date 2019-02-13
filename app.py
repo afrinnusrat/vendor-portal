@@ -16,20 +16,18 @@ db = SQLAlchemy(app)
 
 class Components(db.Model):
     __tablename__ = 'components'
-    id = db.Column(String(50), primary_key=True)
-    name = db.Column(String(50))
-    quantity = db.Column(Integer(), default=0)
-    price = db.Column(Integer(), default=0)
-    component_type = db.Column(String(50))
-    vendor_sku = db.Column(String(50), unique=True)
-    description = db.Column(String(100), nullable=True)
-    created_time = db.Column(DateTime(), nullable=False)
-    modified_time = db.Column(DateTime(), nullable=False)
+    id = db.Column(db.String(50), primary_key=True)
+    name = db.Column(db.String(50))
+    quantity = db.Column(db.Integer(), default=0)
+    price = db.Column(db.Integer(), default=0)
+    component_type = db.Column(db.String(50))
+    vendor_sku = db.Column(db.String(50), unique=True)
+    description = db.Column(db.String(100), nullable=True)
+    created_time = db.Column(db.DateTime(), nullable=False)
+    modified_time = db.Column(db.DateTime(), nullable=False)
     histories = db.relationship(
         'Histories',
-        backref='components',
-        cascade='all,delete'
-    )
+        backref=db.backref('components',lazy=True))
 
     def __init__(self, name, quantity, price, component_type, vendor_sku, description):
         self.id = str(uuid.uuid4())
@@ -48,9 +46,9 @@ class Components(db.Model):
 
 class Histories(db.Model):
     __tablename__ = 'histories'
-    id = db.Column(String(50), primary_key=True)
-    created_time = db.Column(DateTime(), nullable=False)
-    component_id = db.Column(String(50), ForeignKey('components.id'))
+    id = db.Column(db.String(50), primary_key=True)
+    created_time = db.Column(db.DateTime(), nullable=False)
+    component_id = db.Column(db.String(50), db.ForeignKey('components.id'))
 
     def __init__(self, component_id):
         self.id = str(uuid.uuid4())
