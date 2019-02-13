@@ -4,7 +4,7 @@ import uuid
 import datetime
 
 
-class Histories(Base):
+class Histories(db.Model):
     __tablename__ = 'histories'
     id = Column(String(50), primary_key=True)
     created_time = Column(DateTime(), nullable=False)

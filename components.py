@@ -5,7 +5,7 @@ import uuid
 import datetime
 
 
-class Components(Base):
+class Components(db.Model):
     __tablename__ = 'components'
     id = Column(String(50), primary_key=True)
     name = Column(String(50))
