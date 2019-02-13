@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from sqlalchemy import desc
+from database import db_session, init_db
 from flask_sqlalchemy import SQLAlchemy
 from models.components import Components
 from models.histories import Histories
@@ -7,14 +8,14 @@ from flask_migrate import Migrate
 import datetime
 import os
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+@app.before_first_request
+def init():
+    init_db()
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db_session = SQLAlchemy(app)
-Migrate(app,db_session)
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
 
 @app.route('/')
 def start():
@@ -32,8 +33,8 @@ def create_component():
         component_type = request.form.get('component_type')
 
         component = Components(name=name, quantity=quantity, price=price, vendor_sku=vendor_sku, description=description, component_type=component_type)
-        db_session.session.add(component)
-        db_session.session.commit()
+        db_session.add(component)
+        db_session.commit()
 
         return redirect('/components')
 
@@ -69,12 +70,12 @@ def edit_component():
         component.component_type = component_type
         component.modified_time = datetime.datetime.now()
 
-        db_session.session.commit()
+        db_session.commit()
 
         history = Histories(component_id=component.id)
 
-        db_session.session.add(history)
-        db_session.session.commit()
+        db_session.add(history)
+        db_session.commit()
 
         return redirect('/components')
 
@@ -88,8 +89,8 @@ def delete_component():
     component = Components.query.filter(Components.id == id).first()
 
     if component:
-        db_session.session.delete(component)
-        db_session.session.commit()
+        db_session.delete(component)
+        db_session.commit()
 
     return redirect('/components')
 
