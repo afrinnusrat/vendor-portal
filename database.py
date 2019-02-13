@@ -5,7 +5,7 @@ import os
 
 current_dir = os.path.dirname(__file__)
 
-engine = create_engine('sqlite:////{}/components.db'.format(current_dir), convert_unicode=True)
+engine = create_engine(os.environ.get('DATABASE_URL').format(current_dir), convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))

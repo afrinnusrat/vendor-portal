@@ -4,3 +4,4 @@ requests
 gunicorn
 database
 sqlalchemy
+psycopg2
